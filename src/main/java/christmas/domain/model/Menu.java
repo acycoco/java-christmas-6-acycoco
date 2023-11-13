@@ -1,5 +1,8 @@
 package christmas.domain.model;
 
+import java.util.Arrays;
+import java.util.Optional;
+
 public enum Menu {
     MUSHROOM_SOUP("양송이수프", Money.from(6000), MenuCategory.APPETIZER),
     TAPAS("타파스", Money.from(5500), MenuCategory.APPETIZER),
@@ -25,6 +28,16 @@ public enum Menu {
         this.name = name;
         this.price = price;
         this.menuCategory = menuCategory;
+    }
+
+    public static Optional<Menu> findMenuByName(String targetName) {
+        return Arrays.stream(values())
+                .filter(menu -> menu.name.equals(targetName))
+                .findFirst();
+    }
+
+    public boolean isBeverage() {
+        return this.menuCategory == MenuCategory.BEVERAGE;
     }
 
     public String getName() {
