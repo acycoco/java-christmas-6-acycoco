@@ -30,6 +30,12 @@ public class Order {
                 .sum();
     }
 
+    public int countMainOrders() {
+        return orderItems.stream()
+                .filter(orderItem -> orderItem.getMenu().isMain())
+                .mapToInt(OrderItem::getQuantity)
+                .sum();
+    }
 
     private static void validateOrderSize(List<OrderItem> orderItems) {
         int totalQuantity = orderItems.stream()
