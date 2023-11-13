@@ -29,6 +29,10 @@ public class Money {
         return new Money(this.amount.subtract(other.amount));
     }
 
+    public Money multiply(Money other) {
+        return new Money(this.amount.multiply(other.amount));
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }

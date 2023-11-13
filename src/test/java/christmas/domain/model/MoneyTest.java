@@ -60,6 +60,17 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
+    @DisplayName("Money두개를 곱한 결과가 일치한다.")
+    @Test
+    void multiply() {
+        //when
+        Money multipliedMoney = money1.add(money2);
+
+        //then
+        assertThat(multipliedMoney.getAmount())
+                .isEqualTo(BigDecimal.valueOf(2000000));
+    }
+
     @DisplayName("금액이 같으면 같은 동등성을 가진다.")
     @Test
     void testEquals() {
@@ -70,4 +81,5 @@ class MoneyTest {
         assertThat(money1.equals(money3))
                 .isEqualTo(true);
     }
+
 }

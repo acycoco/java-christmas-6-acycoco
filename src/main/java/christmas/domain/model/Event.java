@@ -6,5 +6,5 @@ public interface Event {
 
     boolean canDiscount();
 
-    BigDecimal discountAmount();
+    Money discountAmount();
 }
