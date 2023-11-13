@@ -23,6 +23,14 @@ public class Order {
         return new Order(orderItems);
     }
 
+    public int countDessertOrders() {
+        return orderItems.stream()
+                .filter(orderItem -> orderItem.getMenu().isDessert())
+                .mapToInt(OrderItem::getQuantity)
+                .sum();
+    }
+
+
     private static void validateOrderSize(List<OrderItem> orderItems) {
         int totalQuantity = orderItems.stream()
                 .mapToInt(OrderItem::getQuantity)

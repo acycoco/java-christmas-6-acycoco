@@ -36,6 +36,14 @@ public enum Menu {
                 .findFirst();
     }
 
+    public boolean isDessert() {
+        return this.menuCategory == MenuCategory.DESSERT;
+    }
+
+    public boolean isMain() {
+        return this.menuCategory == MenuCategory.MAIN;
+    }
+
     public boolean isBeverage() {
         return this.menuCategory == MenuCategory.BEVERAGE;
     }
