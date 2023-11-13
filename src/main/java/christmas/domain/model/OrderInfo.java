@@ -17,4 +17,8 @@ public class OrderInfo {
     public boolean isAfter(LocalDate specialDate) {
         return date.isAfter(specialDate);
     }
+
+    public int getDay() {
+        return date.getDayOfMonth();
+    }
 }

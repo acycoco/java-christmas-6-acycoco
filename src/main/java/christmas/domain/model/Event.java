@@ -1,6 +1,10 @@
 package christmas.domain.model;
 
+import java.math.BigDecimal;
+
 public interface Event {
 
-    public boolean canDiscount();
+    boolean canDiscount();
+
+    BigDecimal discountAmount();
 }
