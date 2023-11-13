@@ -4,21 +4,20 @@ import java.time.LocalDate;
 
 public class OrderInfo {
 
-    private final LocalDate date;
+    private final Order order;
+    private final December date;
 
-    public OrderInfo(LocalDate date) {
+    public OrderInfo(Order order, December date) {
+        this.order = order;
         this.date = date;
     }
 
-    public boolean isBefore(LocalDate specialDate) {
-        return date.isBefore(specialDate);
+    public Order getOrder() {
+        return order;
     }
 
-    public boolean isAfter(LocalDate specialDate) {
-        return date.isAfter(specialDate);
+    public December getDate() {
+        return date;
     }
 
-    public int getDay() {
-        return date.getDayOfMonth();
-    }
 }
