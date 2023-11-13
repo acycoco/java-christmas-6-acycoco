@@ -13,7 +13,7 @@ class DecemberCalendarTest {
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void hasStar(int starDay) {
         //given
-        DecemberCalendar decemberCalendar = new DecemberCalendar(starDay);
+        DecemberCalendar decemberCalendar = DecemberCalendar.from(starDay);
 
         //when
         boolean hasStar = decemberCalendar.hasStar();
