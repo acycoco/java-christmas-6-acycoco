@@ -1,5 +1,6 @@
 package christmas.domain.model;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 public class OrderItem {
@@ -15,6 +16,10 @@ public class OrderItem {
         Menu menu = findMenuByName(menuName);
         OrderQuantity orderQuantity = OrderQuantity.from(quantity);
         return new OrderItem(menu, orderQuantity);
+    }
+
+    public Money calculatePrice() {
+        return menu.getPrice().multiply(Money.from(quantity.getQuantity()));
     }
 
     private static Menu findMenuByName(String menuName) {
