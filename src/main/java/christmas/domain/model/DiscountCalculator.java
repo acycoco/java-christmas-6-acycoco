@@ -17,4 +17,20 @@ public class DiscountCalculator {
         return orderInfo.getOrder().calculateTotalPrice();
     }
 
+    public DiscountDetails calculateDiscountDetails() {
+        Map<EventType, Money> discountDetails = new HashMap<>();
+
+        if (canApplyDiscountEvent()) {
+            Arrays.stream(EventType.values())
+                    .filter(event -> event.canDiscount(orderInfo))
+                    .forEach(event -> discountDetails.put(event, event.discountAmount(orderInfo)));
+        }
+
+        return new DiscountDetails(discountDetails);
+    }
+
+    private boolean canApplyDiscountEvent() {
+        Money totalPrice = calculateTotalPrice();
+        return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);
+    }
 }
