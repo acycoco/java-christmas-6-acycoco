@@ -37,6 +37,11 @@ public class DiscountCalculator {
         return new DiscountDetails(discountDetails);
     }
 
+    public Money calculateTotalDiscounts() {
+        DiscountDetails discountDetails = calculateDiscountDetails();
+        return discountDetails.getTotalDiscount();
+    }
+
     private boolean canApplyDiscountEvent() {
         Money totalPrice = calculateTotalPrice();
         return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);

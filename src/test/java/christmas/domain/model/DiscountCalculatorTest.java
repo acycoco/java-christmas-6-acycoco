@@ -73,21 +73,13 @@ class DiscountCalculatorTest {
                 .isEqualTo(Money.from(25000));
     }
 
+    @DisplayName("총 혜택 금액을 계산한다.")
+    @Test
+    void calculateTotalDiscounts() {
+        //when
+        Money totalDiscounts = discountCalculator.calculateTotalDiscounts();
 
-
-    //    <할인 전 총주문 금액>
-//            142,000원
-//
-//<증정 메뉴>
-//    샴페인 1개
-//
-//<혜택 내역>
-//    크리스마스 디데이 할인: -1,200원
-//    평일 할인: -4,046원
-//    특별 할인: -1,000원
-//    증정 이벤트: -25,000원
-//
-//<총혜택 금액>
-//-31,246원
-
+        assertThat(totalDiscounts)
+                .isEqualTo(Money.from(31246));
+    }
 }
