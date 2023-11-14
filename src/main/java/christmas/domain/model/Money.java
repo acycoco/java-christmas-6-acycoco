@@ -41,6 +41,10 @@ public class Money {
         return new Money(sum);
     }
 
+    public boolean isGreaterThanOrEqualTo(Money other) {
+        return this.amount.compareTo(other.amount) >= 0;
+    }
+
     public BigDecimal getAmount() {
         return amount;
     }
