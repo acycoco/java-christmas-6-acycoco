@@ -37,9 +37,9 @@ class DiscountCalculatorTest {
                 .isEqualTo(Money.from(142000));
     }
 
-    @DisplayName("증정상품을 구한다.")
+    @DisplayName("증정이벤트에 해당하는 경우 증정상품을 구한다.")
     @Test
-    void calculateGiftMenuTest() {
+    void calculateGiftMenuIfAvailableTest() {
         //when
         Optional<OrderItem> optionalGiftItem = discountCalculator.calculateGiftMenu();
 
@@ -51,6 +51,25 @@ class DiscountCalculatorTest {
 
         assertThat(optionalGiftItem.get().getQuantity())
                 .isEqualTo(1);
+    }
+
+    @DisplayName("증정이벤트에 해당하지 않는 경우 증정상품이 없다.")
+    @Test
+    void calculateGiftMenuIfNotAvailableTest() {
+        //given
+        OrderInfo orderInfo = new OrderInfo(
+                Order.from(
+                        List.of(
+                                new OrderRequest("티본스테이크", 1)
+                        )), December.from(3));
+        discountCalculator = new DiscountCalculator(orderInfo);
+
+        //when
+        Optional<OrderItem> optionalGiftItem = discountCalculator.calculateGiftMenu();
+
+        //then
+        assertThat(optionalGiftItem.isEmpty())
+                .isEqualTo(true);
     }
 
     @DisplayName("할인내역을 계산한다.")
