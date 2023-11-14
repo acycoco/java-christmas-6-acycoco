@@ -1,9 +1,11 @@
 package christmas.domain.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -25,6 +27,23 @@ class OrderTest {
     @MethodSource("createValidOrderRequests")
     void createOrderSuccess(List<OrderRequest> orderRequests) {
         assertDoesNotThrow(() -> Order.from(orderRequests));
+    }
+
+    @DisplayName("주문 리스트로 총금액을 계산한다.")
+    @Test
+    void calculateTotalPriceTest() {
+        //given
+        Order order = Order.from(
+                List.of(new OrderRequest("해산물파스타", 1),
+                        new OrderRequest("레드와인", 1))
+        );
+
+        //when
+        Money totalPrice = order.calculateTotalPrice();
+
+        //then
+        assertThat(totalPrice)
+                .isEqualTo(Money.from(95000));
     }
 
     private static Stream<Arguments> createInvalidOrderRequests() {

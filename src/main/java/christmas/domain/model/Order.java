@@ -23,6 +23,14 @@ public class Order {
         return new Order(orderItems);
     }
 
+    public Money calculateTotalPrice() {
+        List<Money> orderItemsPrice = orderItems.stream()
+                .map(OrderItem::calculatePrice)
+                .toList();
+
+        return Money.sum(orderItemsPrice);
+    }
+
     public int countDessertOrders() {
         return orderItems.stream()
                 .filter(orderItem -> orderItem.getMenu().isDessert())

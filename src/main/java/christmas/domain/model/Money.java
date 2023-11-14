@@ -1,6 +1,7 @@
 package christmas.domain.model;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
 public class Money {
@@ -31,6 +32,13 @@ public class Money {
 
     public Money multiply(Money other) {
         return new Money(this.amount.multiply(other.amount));
+    }
+
+    public static Money sum(List<Money> monies) {
+        BigDecimal sum = monies.stream()
+                .map(Money::getAmount)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return new Money(sum);
     }
 
     public BigDecimal getAmount() {
