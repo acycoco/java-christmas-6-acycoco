@@ -48,6 +48,11 @@ public class DiscountCalculator {
         return totalPrice.subtract(totalDiscountAmounts);
     }
 
+    public EventBadge calculateEventBadge() {
+        Money totalBenefitAmounts = calculateTotalBenefitAmounts();
+        return EventBadge.fromBenefitAmounts(totalBenefitAmounts);
+    }
+
     private boolean canApplyDiscountEvent() {
         Money totalPrice = calculateTotalPrice();
         return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);

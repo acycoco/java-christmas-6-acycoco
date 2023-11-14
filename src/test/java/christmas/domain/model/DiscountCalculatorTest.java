@@ -112,4 +112,15 @@ class DiscountCalculatorTest {
         assertThat(expectedPayment)
                 .isEqualTo(Money.from(135754));
     }
+
+    @DisplayName("해당되는 이벤트 뱃지를 구한다.")
+    @Test
+    void calculateEventBadgeTest() {
+        //when
+        EventBadge eventBadge = discountCalculator.calculateEventBadge();
+
+        //then
+        assertThat(eventBadge)
+                .isEqualTo(EventBadge.SANTA);
+    }
 }
