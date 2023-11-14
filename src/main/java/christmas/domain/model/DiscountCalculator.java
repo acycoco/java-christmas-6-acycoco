@@ -1,8 +1,6 @@
 package christmas.domain.model;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DiscountCalculator {
 
@@ -15,6 +13,16 @@ public class DiscountCalculator {
 
     public Money calculateTotalPrice() {
         return orderInfo.getOrder().calculateTotalPrice();
+    }
+
+    public Optional<OrderItem> calculateGiftMenu() {
+        GiftEvent giftEvent = new GiftEvent();
+
+        if (giftEvent.canDiscount(orderInfo)) {
+            return Optional.of(giftEvent.getGiftItem());
+        }
+
+        return Optional.empty();
     }
 
     public DiscountDetails calculateDiscountDetails() {

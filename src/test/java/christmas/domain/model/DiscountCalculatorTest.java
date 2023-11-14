@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 class DiscountCalculatorTest {
 
@@ -36,6 +37,22 @@ class DiscountCalculatorTest {
                 .isEqualTo(Money.from(142000));
     }
 
+    @DisplayName("증정상품을 구한다.")
+    @Test
+    void calculateGiftMenuTest() {
+        //when
+        Optional<OrderItem> optionalGiftItem = discountCalculator.calculateGiftMenu();
+
+        //then
+        assertThat(optionalGiftItem.isPresent())
+                .isEqualTo(true);
+        assertThat(optionalGiftItem.get().getMenu())
+                .isEqualTo(Menu.CHAMPAGNE);
+
+        assertThat(optionalGiftItem.get().getQuantity())
+                .isEqualTo(1);
+    }
+
     @DisplayName("할인내역을 계산한다.")
     @Test
     void calculateDiscountDetailsTest() {
@@ -55,6 +72,8 @@ class DiscountCalculatorTest {
         assertThat(details.get(EventType.GIFT_EVENT))
                 .isEqualTo(Money.from(25000));
     }
+
+
 
     //    <할인 전 총주문 금액>
 //            142,000원
