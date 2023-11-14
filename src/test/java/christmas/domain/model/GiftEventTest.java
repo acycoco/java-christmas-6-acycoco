@@ -59,11 +59,14 @@ class GiftEventTest {
                 .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 
-    @DisplayName("증정상품이 샴페인이다.")
+    @DisplayName("증정상품이 샴페인 1개이다.")
     @Test
     void getGift() {
         //when & then
-        assertThat(giftEvent.getGift())
+        assertThat(giftEvent.getGiftItem().getMenu())
                 .isEqualTo(Menu.CHAMPAGNE);
+
+        assertThat(giftEvent.getGiftItem().getQuantity())
+                .isEqualTo(1);
     }
 }

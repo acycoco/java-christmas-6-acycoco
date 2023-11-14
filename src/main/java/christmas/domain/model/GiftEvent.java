@@ -12,10 +12,10 @@ public class GiftEvent implements Event{
 
     @Override
     public Money discountAmount(OrderInfo orderInfo) {
-        return getGift().getPrice();
+        return getGiftItem().calculatePrice();
     }
 
-    public Menu getGift() {
-        return Menu.CHAMPAGNE;
+    public OrderItem getGiftItem() {
+        return OrderItem.of(Menu.CHAMPAGNE.getName(), 1);
     }
 }
