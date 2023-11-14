@@ -25,25 +25,26 @@ public class DiscountCalculator {
         return Optional.empty();
     }
 
-    public DiscountDetails calculateDiscountDetails() {
-        Map<EventType, Money> discountDetails = new HashMap<>();
+    public BenefitDetails calculateBenefitDetails() {
+        Map<EventType, Money> benefitDetails = new HashMap<>();
 
         if (canApplyDiscountEvent()) {
             Arrays.stream(EventType.values())
                     .filter(event -> event.canDiscount(orderInfo))
-                    .forEach(event -> discountDetails.put(event, event.discountAmount(orderInfo)));
+                    .forEach(event -> benefitDetails.put(event, event.discountAmount(orderInfo)));
         }
 
-        return new DiscountDetails(discountDetails);
+        return new BenefitDetails(benefitDetails);
     }
 
-    public Money calculateTotalDiscounts() {
-        DiscountDetails discountDetails = calculateDiscountDetails();
-        return discountDetails.getTotalDiscount();
+    public Money calculateTotalBenefitAmounts() {
+        BenefitDetails benefitDetails = calculateBenefitDetails();
+        return benefitDetails.getTotalBenefitAmounts();
     }
 
     private boolean canApplyDiscountEvent() {
         Money totalPrice = calculateTotalPrice();
         return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);
     }
+
 }

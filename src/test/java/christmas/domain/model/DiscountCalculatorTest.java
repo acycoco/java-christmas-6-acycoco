@@ -76,7 +76,7 @@ class DiscountCalculatorTest {
     @Test
     void calculateDiscountDetailsTest() {
         //when
-        DiscountDetails discountDetails = discountCalculator.calculateDiscountDetails();
+        BenefitDetails discountDetails = discountCalculator.calculateBenefitDetails();
         Map<EventType, Money> details = discountDetails.getDetails();
 
         //then
@@ -94,9 +94,9 @@ class DiscountCalculatorTest {
 
     @DisplayName("총 혜택 금액을 계산한다.")
     @Test
-    void calculateTotalDiscounts() {
+    void calculateTotalBenfits() {
         //when
-        Money totalDiscounts = discountCalculator.calculateTotalDiscounts();
+        Money totalDiscounts = discountCalculator.calculateTotalBenefitAmounts();
 
         assertThat(totalDiscounts)
                 .isEqualTo(Money.from(31246));

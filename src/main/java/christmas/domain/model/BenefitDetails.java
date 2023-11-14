@@ -4,19 +4,19 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public class DiscountDetails {
+public class BenefitDetails {
 
     private final Map<EventType, Money> details;
 
-    public DiscountDetails(Map<EventType, Money> details) {
+    public BenefitDetails(Map<EventType, Money> details) {
         this.details = details;
     }
 
-    public Money getTotalDiscount() {
-        List<Money> discounts = details.values()
+    public Money getTotalBenefitAmounts() {
+        List<Money> benefits = details.values()
                 .stream()
                 .toList();
-        return Money.sum(discounts);
+        return Money.sum(benefits);
     }
     public Map<EventType, Money> getDetails() {
         return Collections.unmodifiableMap(details);
