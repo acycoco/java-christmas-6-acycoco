@@ -42,9 +42,26 @@ public class DiscountCalculator {
         return benefitDetails.getTotalBenefitAmounts();
     }
 
+    public Money calculateExpectedPayment() {
+        Money totalPrice = calculateTotalPrice();
+        Money totalDiscountAmounts = calculateTotalDiscountAmounts();
+        return totalPrice.subtract(totalDiscountAmounts);
+    }
+
     private boolean canApplyDiscountEvent() {
         Money totalPrice = calculateTotalPrice();
         return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);
     }
 
+    private Money calculateTotalDiscountAmounts() {
+        Money totalBenefitAmounts = calculateTotalBenefitAmounts();
+        Optional<OrderItem> giftBenefit = calculateGiftMenu();
+
+        if (giftBenefit.isPresent()) {
+            OrderItem giftItem = giftBenefit.get();
+            return totalBenefitAmounts.subtract(giftItem.calculatePrice());
+        }
+
+        return totalBenefitAmounts;
+    }
 }

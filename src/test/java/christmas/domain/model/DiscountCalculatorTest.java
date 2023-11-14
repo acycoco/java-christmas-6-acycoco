@@ -101,4 +101,15 @@ class DiscountCalculatorTest {
         assertThat(totalDiscounts)
                 .isEqualTo(Money.from(31246));
     }
+
+    @DisplayName("할인 후 총 예상 결제 금액을 계산한다.")
+    @Test
+    void calculateExpectedPaymentTest() {
+        //when
+        Money expectedPayment = discountCalculator.calculateExpectedPayment();
+
+        //then
+        assertThat(expectedPayment)
+                .isEqualTo(Money.from(135754));
+    }
 }
