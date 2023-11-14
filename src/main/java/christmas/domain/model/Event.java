@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public interface Event {
 
-    boolean canDiscount();
+    boolean canDiscount(OrderInfo orderInfo);
 
-    Money discountAmount();
+    Money discountAmount(OrderInfo orderInfo);
 }

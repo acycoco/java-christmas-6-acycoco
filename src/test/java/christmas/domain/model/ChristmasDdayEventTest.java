@@ -6,9 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 class ChristmasDdayEventTest {
@@ -21,10 +19,10 @@ class ChristmasDdayEventTest {
         Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent(orderInfo);
+        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.canDiscount())
+        assertThat(christmasDdayEvent.canDiscount(orderInfo))
                 .isEqualTo(true);
     }
 
@@ -36,10 +34,10 @@ class ChristmasDdayEventTest {
         Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent(orderInfo);
+        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.canDiscount())
+        assertThat(christmasDdayEvent.canDiscount(orderInfo))
                 .isEqualTo(false);
     }
 
@@ -55,10 +53,10 @@ class ChristmasDdayEventTest {
         Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
         December date = December.from(christmasDDay);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent(orderInfo);
+        ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.discountAmount().getAmount())
+        assertThat(christmasDdayEvent.discountAmount(orderInfo).getAmount())
                 .isEqualTo(discount);
     }
 }

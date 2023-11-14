@@ -19,10 +19,10 @@ class WeekendEventTest {
         Order order = Order.from(List.of(new OrderRequest("티본스테이크", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekendEvent weekendEvent = new WeekendEvent(orderInfo);
+        WeekendEvent weekendEvent = new WeekendEvent();
 
         //when & then
-        assertThat(weekendEvent.canDiscount())
+        assertThat(weekendEvent.canDiscount(orderInfo))
                 .isEqualTo(true);
     }
 
@@ -34,10 +34,10 @@ class WeekendEventTest {
         Order order = Order.from(List.of(new OrderRequest(menuName, 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekendEvent weekendEvent = new WeekendEvent(orderInfo);
+        WeekendEvent weekendEvent = new WeekendEvent();
 
         //when & then
-        assertThat(weekendEvent.canDiscount())
+        assertThat(weekendEvent.canDiscount(orderInfo))
                 .isEqualTo(false);
     }
 
@@ -52,10 +52,10 @@ class WeekendEventTest {
         Order order = Order.from(List.of(new OrderRequest("해산물파스타", quantity)));
         December date = December.from(8);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekendEvent weekendEvent = new WeekendEvent(orderInfo);
+        WeekendEvent weekendEvent = new WeekendEvent();
 
         //when & then
-        assertThat(weekendEvent.discountAmount().getAmount())
+        assertThat(weekendEvent.discountAmount(orderInfo).getAmount())
                 .isEqualTo(discount);
     }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 class GiftEventTest {
 
     private GiftEvent giftEvent;
+    private OrderInfo orderInfo;
 
     @BeforeEach
     void setUp() {
@@ -19,8 +20,8 @@ class GiftEventTest {
                         new OrderRequest("레드와인", 1))
         );
         December date = December.from(25);
-        OrderInfo orderInfo = new OrderInfo(order, date);
-        giftEvent = new GiftEvent(orderInfo);
+        orderInfo = new OrderInfo(order, date);
+        giftEvent = new GiftEvent();
 
     }
 
@@ -28,7 +29,7 @@ class GiftEventTest {
     @Test
     void canDiscountIfTotalPriceIsGreaterThan120000() {
         //when & then
-        assertThat(giftEvent.canDiscount())
+        assertThat(giftEvent.canDiscount(orderInfo))
                 .isEqualTo(true);
     }
 
@@ -42,11 +43,11 @@ class GiftEventTest {
                         new OrderRequest("제로콜라", 1))
         );
         December date = December.from(25);
-        OrderInfo orderInfo = new OrderInfo(order, date);
-        GiftEvent giftEventFalse = new GiftEvent(orderInfo);
+        OrderInfo orderInfoFalse = new OrderInfo(order, date);
+        GiftEvent giftEventFalse = new GiftEvent();
 
         //when & then
-        assertThat(giftEventFalse.canDiscount())
+        assertThat(giftEventFalse.canDiscount(orderInfoFalse))
                 .isEqualTo(false);
     }
 
@@ -54,7 +55,7 @@ class GiftEventTest {
     @Test
     void discountAmountIs25000() {
         //when & then
-        assertThat(giftEvent.discountAmount())
+        assertThat(giftEvent.discountAmount(orderInfo))
                 .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 

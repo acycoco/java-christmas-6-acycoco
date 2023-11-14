@@ -1,16 +1,15 @@
 package christmas.domain.model;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 
 class WeekdayEventTest {
 
@@ -22,10 +21,10 @@ class WeekdayEventTest {
         Order order = Order.from(List.of(new OrderRequest("초코케이크", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekdayEvent weekdayEvent = new WeekdayEvent(orderInfo);
+        WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.canDiscount())
+        assertThat(weekdayEvent.canDiscount(orderInfo))
                 .isEqualTo(true);
     }
 
@@ -37,10 +36,10 @@ class WeekdayEventTest {
         Order order = Order.from(List.of(new OrderRequest(menuName, 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekdayEvent weekdayEvent = new WeekdayEvent(orderInfo);
+        WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.canDiscount())
+        assertThat(weekdayEvent.canDiscount(orderInfo))
                 .isEqualTo(false);
     }
 
@@ -55,10 +54,10 @@ class WeekdayEventTest {
         Order order = Order.from(List.of(new OrderRequest("초코케이크", quantity)));
         December date = December.from(7);
         OrderInfo orderInfo = new OrderInfo(order, date);
-        WeekdayEvent weekdayEvent = new WeekdayEvent(orderInfo);
+        WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.discountAmount().getAmount())
+        assertThat(weekdayEvent.discountAmount(orderInfo).getAmount())
                 .isEqualTo(discount);
     }
 }

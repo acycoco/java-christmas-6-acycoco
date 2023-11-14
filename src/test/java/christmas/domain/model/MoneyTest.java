@@ -64,7 +64,7 @@ class MoneyTest {
     @Test
     void multiply() {
         //when
-        Money multipliedMoney = money1.add(money2);
+        Money multipliedMoney = money1.multiply(money2);
 
         //then
         assertThat(multipliedMoney.getAmount())
