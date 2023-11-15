@@ -18,7 +18,7 @@ public class OrderQuantity {
 
     public static void validateRange(int quantity) {
         if (quantity < MIN_ORDER_QUANTITY) {
-            throw new IllegalArgumentException("메뉴의 주문 개수가 " + MIN_ORDER_QUANTITY + "이상이어야합니다.");
+            throw new IllegalArgumentException();
         }
     }
 

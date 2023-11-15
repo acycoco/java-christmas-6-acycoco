@@ -1,6 +1,5 @@
 package christmas.domain.model;
 
-import java.math.BigDecimal;
 import java.util.Optional;
 
 public class OrderItem {
@@ -26,7 +25,7 @@ public class OrderItem {
         Optional<Menu> optionalMenu = Menu.findMenuByName(menuName);
 
         if (optionalMenu.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException();
         }
 
         return optionalMenu.get();

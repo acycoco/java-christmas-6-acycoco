@@ -10,7 +10,7 @@ public class Money {
 
     private Money(BigDecimal amount) {
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("금액은 음수가 될 수 없습니다.");
+            throw new IllegalArgumentException("[ERROR] 금액은 음수가 될 수 없습니다.");
         }
         this.amount = amount;
     }
@@ -25,7 +25,7 @@ public class Money {
 
     public Money subtract(Money other) {
         if (this.amount.compareTo(other.amount) < 0) {
-            throw new IllegalArgumentException("빼려는 금액이 현재 금액보다 큽니다.");
+            throw new IllegalArgumentException("[ERROR] 빼려는 금액이 현재 금액보다 큽니다.");
         }
         return new Money(this.amount.subtract(other.amount));
     }

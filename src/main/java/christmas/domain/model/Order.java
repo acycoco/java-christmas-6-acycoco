@@ -53,7 +53,7 @@ public class Order {
                 .sum();
 
         if (totalQuantity > MAX_ORDER_Quantity) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException();
         }
     }
 
@@ -64,13 +64,13 @@ public class Order {
                 .count();
 
         if (distinctMenuCount != orderItems.size()) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException();
         }
     }
 
     private static void validateNotAllBeverageOrder(List<OrderItem> orderItems) {
         if (isAllBeverageOrder(orderItems)) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException();
         }
     }
 

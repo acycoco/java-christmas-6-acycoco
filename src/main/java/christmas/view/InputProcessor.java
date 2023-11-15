@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.domain.model.OrderRequest;
-import christmas.error.ErrorMessage;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class InputProcessor {
 
     private void validateNotNull(String input) {
         if (input == null) {
-            throw new IllegalArgumentException(ErrorMessage.NULL_ERROR.getMessage());
+            throw new IllegalArgumentException();
         }
     }
 
@@ -37,7 +37,7 @@ public class InputProcessor {
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(ErrorMessage.NOT_NUMERIC.getMessage());
+            throw new IllegalArgumentException();
         }
     }
 
@@ -58,7 +58,7 @@ public class InputProcessor {
 
     private void validateOrderItemPartsLength(List<String> orderItemParts) {
         if (orderItemParts.size() != 2) {
-            throw new IllegalArgumentException("잘못된 입력 형식입니다: ");
+            throw new IllegalArgumentException();
         }
     }
 
