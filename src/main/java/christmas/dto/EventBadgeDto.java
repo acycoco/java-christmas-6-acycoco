@@ -1,6 +1,6 @@
 package christmas.dto;
 
-import christmas.domain.model.EventBadge;
+import christmas.domain.model.eventcalculator.EventBadge;
 
 public class EventBadgeDto {
 

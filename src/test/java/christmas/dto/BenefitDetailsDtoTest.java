@@ -1,20 +1,17 @@
 package christmas.dto;
 
-import christmas.domain.model.BenefitDetails;
-import christmas.domain.model.EventType;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import christmas.domain.model.eventcalculator.BenefitDetails;
+import christmas.domain.model.event.EventType;
 import christmas.domain.model.Money;
-import christmas.domain.model.OrderItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class BenefitDetailsDtoTest {
 

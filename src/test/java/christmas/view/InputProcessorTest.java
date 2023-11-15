@@ -1,14 +1,14 @@
 package christmas.view;
 
-import christmas.domain.model.OrderRequest;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class InputProcessorTest {
 
@@ -39,17 +39,17 @@ class InputProcessorTest {
     @DisplayName("주문을 orderRequests로 변환하는 데 성공한다.")
     @Test
     void totoOrderRequestsSuccess() {
-        List<OrderRequest> orderRequests = inputProcessor.toOrderRequests("타파스 - 1, 제로콜라-2  ");
+        List<OrderRequestDto> orderRequestDtos = inputProcessor.toOrderRequests("타파스 - 1, 제로콜라-2  ");
 
-        assertThat(orderRequests.size())
+        assertThat(orderRequestDtos.size())
                 .isEqualTo(2);
-        assertThat(orderRequests.get(0).getMenuName())
+        assertThat(orderRequestDtos.get(0).getMenuName())
                 .isEqualTo("타파스");
-        assertThat(orderRequests.get(0).getQuantity())
+        assertThat(orderRequestDtos.get(0).getQuantity())
                 .isEqualTo(1);
-        assertThat(orderRequests.get(1).getMenuName())
+        assertThat(orderRequestDtos.get(1).getMenuName())
                 .isEqualTo("제로콜라");
-        assertThat(orderRequests.get(1).getQuantity())
+        assertThat(orderRequestDtos.get(1).getQuantity())
                 .isEqualTo(2);
     }
 

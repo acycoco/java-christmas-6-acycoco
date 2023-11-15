@@ -1,15 +1,17 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.model.order.December;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.OrderInfo;
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.math.BigDecimal;
 import java.util.List;
-
-
 
 class WeekdayEventTest {
 
@@ -18,7 +20,7 @@ class WeekdayEventTest {
     @ValueSource(ints = {3, 7})
     void canDiscountIfWeekdayOrOrderDessert(int day) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("초코케이크", 1)));
+        Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekdayEvent weekdayEvent = new WeekdayEvent();
@@ -33,7 +35,7 @@ class WeekdayEventTest {
     @CsvSource({"7, 해산물파스타", "8, 초코케이크"})
     void cantDiscountIfNotWeekdayOrNotOrderDessert(int day, String menuName) {
         //given
-        Order order = Order.from(List.of(new OrderRequest(menuName, 1)));
+        Order order = Order.from(List.of(new OrderRequestDto(menuName, 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekdayEvent weekdayEvent = new WeekdayEvent();
@@ -51,7 +53,7 @@ class WeekdayEventTest {
     })
     void calculateDiscountAmountBasedOnDessertQuantity(int quantity, BigDecimal discount) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("초코케이크", quantity)));
+        Order order = Order.from(List.of(new OrderRequestDto("초코케이크", quantity)));
         December date = December.from(7);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekdayEvent weekdayEvent = new WeekdayEvent();

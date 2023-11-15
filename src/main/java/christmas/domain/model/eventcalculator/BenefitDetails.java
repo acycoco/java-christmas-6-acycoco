@@ -1,4 +1,7 @@
-package christmas.domain.model;
+package christmas.domain.model.eventcalculator;
+
+import christmas.domain.model.Money;
+import christmas.domain.model.event.EventType;
 
 import java.util.Collections;
 import java.util.List;

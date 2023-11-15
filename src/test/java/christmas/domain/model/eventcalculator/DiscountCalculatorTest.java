@@ -1,7 +1,11 @@
-package christmas.domain.model;
+package christmas.domain.model.eventcalculator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.model.Money;
+import christmas.domain.model.event.EventType;
+import christmas.domain.model.order.*;
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,10 +22,10 @@ class DiscountCalculatorTest {
         OrderInfo orderInfo = new OrderInfo(
                 Order.from(
                         List.of(
-                                new OrderRequest("티본스테이크", 1),
-                                new OrderRequest("바비큐립", 1),
-                                new OrderRequest("초코케이크", 2),
-                                new OrderRequest("제로콜라", 1)
+                                new OrderRequestDto("티본스테이크", 1),
+                                new OrderRequestDto("바비큐립", 1),
+                                new OrderRequestDto("초코케이크", 2),
+                                new OrderRequestDto("제로콜라", 1)
                         )), December.from(3));
         discountCalculator = new DiscountCalculator(orderInfo);
     }
@@ -60,7 +64,7 @@ class DiscountCalculatorTest {
         OrderInfo orderInfo = new OrderInfo(
                 Order.from(
                         List.of(
-                                new OrderRequest("티본스테이크", 1)
+                                new OrderRequestDto("티본스테이크", 1)
                         )), December.from(3));
         discountCalculator = new DiscountCalculator(orderInfo);
 

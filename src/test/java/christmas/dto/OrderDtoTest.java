@@ -1,13 +1,12 @@
 package christmas.dto;
 
-import christmas.domain.model.Order;
-import christmas.domain.model.OrderRequest;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import christmas.domain.model.order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Map;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class OrderDtoTest {
 
@@ -15,8 +14,8 @@ class OrderDtoTest {
     @Test
     void createFromOrder() {
         Order order = Order.from(List.of(
-                new OrderRequest("해산물파스타", 1),
-                new OrderRequest("레드와인", 2)
+                new OrderRequestDto("해산물파스타", 1),
+                new OrderRequestDto("레드와인", 2)
         ));
 
         OrderDto orderDto = OrderDto.from(order);

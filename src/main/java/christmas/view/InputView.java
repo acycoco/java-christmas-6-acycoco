@@ -1,7 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
-import christmas.domain.model.OrderRequest;
+import christmas.dto.OrderRequestDto;
 import christmas.message.PromptMessage;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class InputView {
         return inputProcessor.toDate(input);
     }
 
-    public List<OrderRequest> readOrderRequests() {
+    public List<OrderRequestDto> readOrderRequests() {
         System.out.println(PromptMessage.READ_ORDER_REQUESTS.getPrompt());
         String input = read();
         return inputProcessor.toOrderRequests(input);

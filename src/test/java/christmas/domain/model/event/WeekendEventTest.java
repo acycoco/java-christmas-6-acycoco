@@ -1,7 +1,11 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.model.order.December;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.OrderInfo;
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,7 +20,7 @@ class WeekendEventTest {
     @ValueSource(ints = {8, 9})
     void canDiscountIfWeekendOrOrderMain(int day) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("티본스테이크", 1)));
+        Order order = Order.from(List.of(new OrderRequestDto("티본스테이크", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekendEvent weekendEvent = new WeekendEvent();
@@ -31,7 +35,7 @@ class WeekendEventTest {
     @CsvSource({"8, 초코케이크", "7, 해산물파스타"})
     void cantDiscountIfNotWeekendOrNotOrderMain(int day, String menuName) {
         //given
-        Order order = Order.from(List.of(new OrderRequest(menuName, 1)));
+        Order order = Order.from(List.of(new OrderRequestDto(menuName, 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekendEvent weekendEvent = new WeekendEvent();
@@ -49,7 +53,7 @@ class WeekendEventTest {
     })
     void calculateDiscountAmountBasedOnMainQuantity(int quantity, BigDecimal discount) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("해산물파스타", quantity)));
+        Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", quantity)));
         December date = December.from(8);
         OrderInfo orderInfo = new OrderInfo(order, date);
         WeekendEvent weekendEvent = new WeekendEvent();

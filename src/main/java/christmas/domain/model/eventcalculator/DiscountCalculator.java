@@ -1,10 +1,17 @@
-package christmas.domain.model;
+package christmas.domain.model.eventcalculator;
+
+import christmas.domain.model.Money;
+import christmas.domain.model.event.EventType;
+import christmas.domain.model.event.GiftEvent;
+import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.OrderItem;
 
 import java.util.*;
 
 public class DiscountCalculator {
 
     private static final Money ALL_EVENT_THRESHOLD = Money.from(10000);
+
     private final OrderInfo orderInfo;
 
     public DiscountCalculator(OrderInfo orderInfo) {

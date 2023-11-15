@@ -1,4 +1,7 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
+
+import christmas.domain.model.Money;
+import christmas.domain.model.order.OrderInfo;
 
 public class SpecialEvent implements Event{
 

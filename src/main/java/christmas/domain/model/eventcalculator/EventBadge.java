@@ -1,4 +1,6 @@
-package christmas.domain.model;
+package christmas.domain.model.eventcalculator;
+
+import christmas.domain.model.Money;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package christmas.domain.model;
+package christmas.domain.model.order;
 
 import java.util.Objects;
 

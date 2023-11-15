@@ -1,4 +1,7 @@
-package christmas.domain.model;
+package christmas.domain.model.order;
+
+import christmas.domain.model.Money;
+import christmas.dto.OrderRequestDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,8 +15,8 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-    public static Order from(List<OrderRequest> orderRequests) {
-        List<OrderItem> orderItems = orderRequests.stream()
+    public static Order from(List<OrderRequestDto> orderRequestDtos) {
+        List<OrderItem> orderItems = orderRequestDtos.stream()
                 .map(orderRequest -> OrderItem.of(orderRequest.getMenuName(), orderRequest.getQuantity()))
                 .toList();
 

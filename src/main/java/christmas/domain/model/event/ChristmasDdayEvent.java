@@ -1,6 +1,8 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
 
-import java.math.BigDecimal;
+import christmas.domain.model.Money;
+import christmas.domain.model.order.OrderInfo;
+
 import java.time.LocalDate;
 
 public class ChristmasDdayEvent implements Event {

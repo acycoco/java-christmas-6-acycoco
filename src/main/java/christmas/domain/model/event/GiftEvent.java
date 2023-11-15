@@ -1,4 +1,9 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
+
+import christmas.domain.model.order.Menu;
+import christmas.domain.model.Money;
+import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.OrderItem;
 
 public class GiftEvent implements Event{
 

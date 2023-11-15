@@ -1,7 +1,11 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.model.order.December;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.OrderInfo;
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -16,7 +20,7 @@ class ChristmasDdayEventTest {
     @ValueSource(ints = {25, 24, 1})
     void canDiscountIfBetweenDec1And25(int day) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
+        Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
@@ -31,7 +35,7 @@ class ChristmasDdayEventTest {
     @ValueSource(ints = {26, 31})
     void cantDiscountIfAfterDec25(int day) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
+        Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
         December date = December.from(day);
         OrderInfo orderInfo = new OrderInfo(order, date);
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
@@ -50,7 +54,7 @@ class ChristmasDdayEventTest {
     })
     void calculateDiscountAmountBasedOnChristmasDDay(int christmasDDay, BigDecimal discount) {
         //given
-        Order order = Order.from(List.of(new OrderRequest("해산물파스타", 1)));
+        Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
         December date = December.from(christmasDDay);
         OrderInfo orderInfo = new OrderInfo(order, date);
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();

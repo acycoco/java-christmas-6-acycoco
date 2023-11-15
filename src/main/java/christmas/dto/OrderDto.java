@@ -1,10 +1,9 @@
 package christmas.dto;
 
-import christmas.domain.model.Order;
-import christmas.domain.model.OrderItem;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.OrderItem;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 

@@ -1,4 +1,4 @@
-package christmas.domain.model;
+package christmas.domain.model.order;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;

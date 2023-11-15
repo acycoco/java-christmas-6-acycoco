@@ -1,6 +1,6 @@
 package christmas.dto;
 
-import christmas.domain.model.OrderItem;
+import christmas.domain.model.order.OrderItem;
 
 import java.util.Collections;
 import java.util.HashMap;

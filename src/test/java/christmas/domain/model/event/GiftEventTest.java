@@ -1,7 +1,12 @@
-package christmas.domain.model;
+package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import christmas.domain.model.order.December;
+import christmas.domain.model.order.Menu;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.OrderInfo;
+import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,9 +20,9 @@ class GiftEventTest {
     @BeforeEach
     void setUp() {
         Order order = Order.from(
-                List.of(new OrderRequest("해산물파스타", 1),
-                        new OrderRequest("크리스마스파스타", 1),
-                        new OrderRequest("레드와인", 1))
+                List.of(new OrderRequestDto("해산물파스타", 1),
+                        new OrderRequestDto("크리스마스파스타", 1),
+                        new OrderRequestDto("레드와인", 1))
         );
         December date = December.from(25);
         orderInfo = new OrderInfo(order, date);
@@ -37,10 +42,10 @@ class GiftEventTest {
     @Test
     void cantDiscountIfTotalPriceIsNotGreaterThan120000() {
         Order order = Order.from(
-                List.of(new OrderRequest("티본스테이크", 1),
-                        new OrderRequest("해산물파스타", 1),
-                        new OrderRequest("크리스마스파스타", 1),
-                        new OrderRequest("제로콜라", 1))
+                List.of(new OrderRequestDto("티본스테이크", 1),
+                        new OrderRequestDto("해산물파스타", 1),
+                        new OrderRequestDto("크리스마스파스타", 1),
+                        new OrderRequestDto("제로콜라", 1))
         );
         December date = December.from(25);
         OrderInfo orderInfoFalse = new OrderInfo(order, date);

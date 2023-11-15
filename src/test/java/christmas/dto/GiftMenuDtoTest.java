@@ -1,12 +1,12 @@
 package christmas.dto;
 
-import christmas.domain.model.OrderItem;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import christmas.domain.model.order.OrderItem;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class GiftMenuDtoTest {
 

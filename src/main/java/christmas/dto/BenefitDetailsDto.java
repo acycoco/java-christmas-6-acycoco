@@ -1,8 +1,6 @@
 package christmas.dto;
 
-import christmas.domain.model.BenefitDetails;
-import christmas.domain.model.EventType;
-import christmas.domain.model.Money;
+import christmas.domain.model.eventcalculator.BenefitDetails;
 
 import java.math.BigDecimal;
 import java.util.Collections;

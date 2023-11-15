@@ -1,6 +1,6 @@
 package christmas.view;
 
-import christmas.domain.model.OrderRequest;
+import christmas.dto.OrderRequestDto;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +16,7 @@ public class InputProcessor {
         return toNumber(input);
     }
 
-    public List<OrderRequest> toOrderRequests(String input) {
+    public List<OrderRequestDto> toOrderRequests(String input) {
         validateNotNull(input);
         input = input.trim();
 
@@ -47,13 +47,13 @@ public class InputProcessor {
                 .toList();
     }
 
-    private OrderRequest parseOrderItem(String orderItem, String mark) {
+    private OrderRequestDto parseOrderItem(String orderItem, String mark) {
         List<String> orderItemParts = parseWith(orderItem, mark);
         validateOrderItemPartsLength(orderItemParts);
 
         String menuName = orderItemParts.get(0);
         int quantity = Integer.parseInt(orderItemParts.get(1));
-        return new OrderRequest(menuName, quantity);
+        return new OrderRequestDto(menuName, quantity);
     }
 
     private void validateOrderItemPartsLength(List<String> orderItemParts) {

@@ -1,10 +1,10 @@
-package christmas.domain.model;
+package christmas.dto;
 
-public class OrderRequest {
+public class OrderRequestDto {
     private final String menuName;
     private final int quantity;
 
-    public OrderRequest(String menuName, int quantity) {
+    public OrderRequestDto(String menuName, int quantity) {
         this.menuName = menuName;
         this.quantity = quantity;
     }
@@ -19,7 +19,7 @@ public class OrderRequest {
 
     @Override
     public String toString() {
-        return "OrderRequest{" +
+        return "OrderRequestDto{" +
                 "menuName='" + menuName + '\'' +
                 ", quantity=" + quantity +
                 '}';
