@@ -6,8 +6,8 @@ import christmas.domain.model.event.GiftEvent;
 import christmas.domain.model.order.Order;
 import christmas.domain.model.order.OrderItem;
 import christmas.domain.model.order.VisitDate;
-
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class DiscountCalculator {
 
@@ -36,13 +36,15 @@ public class DiscountCalculator {
     }
 
     public BenefitDetails calculateBenefitDetails() {
-        Map<EventType, Money> benefitDetails = new HashMap<>();
-
-        if (canApplyDiscountEvent()) {
-            Arrays.stream(EventType.values())
-                    .filter(event -> event.canDiscount(order, visitDate))
-                    .forEach(event -> benefitDetails.put(event, event.discountAmount(order, visitDate)));
+        if (!checkNoBenefit()) {
+            return new BenefitDetails(Collections.emptyMap());
         }
+
+        Map<EventType, Money> benefitDetails = Arrays.stream(EventType.values())
+                .filter(event -> event.canDiscount(order, visitDate))
+                .collect(Collectors.toMap(
+                        event -> event,
+                        event -> event.discountAmount(order, visitDate)));
 
         return new BenefitDetails(benefitDetails);
     }
@@ -63,9 +65,9 @@ public class DiscountCalculator {
         return EventBadge.fromBenefitAmounts(totalBenefitAmounts);
     }
 
-    private boolean canApplyDiscountEvent() {
+    private boolean checkNoBenefit() {
         Money totalPrice = calculateTotalPrice();
-        return totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);
+        return !totalPrice.isGreaterThanOrEqualTo(ALL_EVENT_THRESHOLD);
     }
 
     private Money calculateTotalDiscountAmounts() {

@@ -3,7 +3,6 @@ package christmas.domain.model.event;
 import christmas.domain.model.Money;
 import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
-
 import java.time.LocalDate;
 
 public class ChristmasDdayEvent implements Event {
