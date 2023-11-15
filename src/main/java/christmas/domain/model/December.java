@@ -27,7 +27,6 @@ public class December {
     }
 
     public boolean isWeekday() {
-        DayOfWeek dayOfWeek = date.getDayOfWeek();
         return !isWeekend();
     }
 
