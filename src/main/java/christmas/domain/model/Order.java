@@ -2,11 +2,10 @@ package christmas.domain.model;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Order {
 
-    private static final int MAX_ORDER_Quantity = 20;
+    private static final int MAX_ORDER_TOTAL_QUANTITY = 20;
     private final List<OrderItem> orderItems;
 
     private Order(List<OrderItem> orderItems) {
@@ -52,7 +51,7 @@ public class Order {
                 .mapToInt(OrderItem::getQuantity)
                 .sum();
 
-        if (totalQuantity > MAX_ORDER_Quantity) {
+        if (totalQuantity > MAX_ORDER_TOTAL_QUANTITY) {
             throw new IllegalArgumentException();
         }
     }

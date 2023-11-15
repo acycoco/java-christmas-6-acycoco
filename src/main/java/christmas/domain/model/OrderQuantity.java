@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class OrderQuantity {
 
-    private final int quantity;
+    private static final int MIN_ORDER_QUANTITY_PER_MENU = 1;
 
-    private static final int MIN_ORDER_QUANTITY = 1;
+    private final int quantity;
     private OrderQuantity(int quantity) {
         this.quantity = quantity;
     }
@@ -17,7 +17,7 @@ public class OrderQuantity {
     }
 
     public static void validateRange(int quantity) {
-        if (quantity < MIN_ORDER_QUANTITY) {
+        if (quantity < MIN_ORDER_QUANTITY_PER_MENU) {
             throw new IllegalArgumentException();
         }
     }

@@ -1,7 +1,5 @@
 package christmas.domain.model;
 
-import java.time.LocalDate;
-
 public class OrderInfo {
 
     private final Order order;
