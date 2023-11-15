@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.dto.BenefitDetailsDto;
 import christmas.dto.GiftMenuDto;
 import christmas.dto.MoneyDto;
 import christmas.dto.OrderDto;
@@ -12,6 +13,7 @@ public class OutputView {
     private static final String ORDER_MENU_PROMPT = "<주문메뉴>\n";
     private static final String TOTAL_ORDER_PRICE_PROMPT = "<할인 전 총주문 금액>\n";
     private static final String GIFT_MENU_PROMPT = "<증정 메뉴>\n";
+    private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>\n";
 
     public void printOrderMenu(OrderDto orderDto) {
         StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
@@ -48,7 +50,28 @@ public class OutputView {
         System.out.println(line);
     }
 
+    public void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
+        StringBuilder line = new StringBuilder(GIFT_MENU_PROMPT);
+
+        Map<String, BigDecimal> detailsDetails = benefitDetailsDto.getDetails();
+
+        if (detailsDetails.isEmpty()) {
+            line.append("없음");
+        }
+
+        if (!detailsDetails.isEmpty()) {
+            detailsDetails.forEach((eventName, money) -> {
+                line.append(eventName).append(": ").append(formatMinusMoney(money)).append("원\n");
+            });
+        }
+
+        System.out.println(line);
+    }
+
     private String formatMoney(BigDecimal money) {
         return String.format("%,.0f원", money);
+    }
+    private String formatMinusMoney(BigDecimal money) {
+        return String.format("-%,.0f원", money);
     }
 }
