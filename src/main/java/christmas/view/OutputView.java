@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
 public class OutputView {
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String ORDER_MENU_PROMPT = "<주문 메뉴>" + LINE_SEPARATOR;
-    private static final String TOTAL_ORDER_PRICE_PROMPT = "<할인 전 총주문 금액>" + LINE_SEPARATOR;
-    private static final String GIFT_MENU_PROMPT = "<증정 메뉴>" + LINE_SEPARATOR;
-    private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>" + LINE_SEPARATOR;
-    private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>" + LINE_SEPARATOR;
-    private static final String EXPECTED_PAYMENT_PROMPT = "<할인 후 예상 결제 금액>" + LINE_SEPARATOR;
-    private static final String EVENT_BADGE_PROMPT = "<12월 이벤트 배지>" + LINE_SEPARATOR;
+    private static final String ORDER_MENU_PROMPT = "<주문 메뉴>";
+    private static final String TOTAL_ORDER_PRICE_PROMPT = "<할인 전 총주문 금액>";
+    private static final String GIFT_MENU_PROMPT = "<증정 메뉴>";
+    private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>";
+    private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>";
+    private static final String EXPECTED_PAYMENT_PROMPT = "<할인 후 예상 결제 금액>";
+    private static final String EVENT_BADGE_PROMPT = "<12월 이벤트 배지>";
 
     public void printOrderMenu(OrderDto orderDto) {
         Map<String, Integer> orderItems = orderDto.getOrderItems();
@@ -100,7 +100,8 @@ public class OutputView {
 
     private void printPromptWithContent(String prompt, String content) {
         StringBuilder line = new StringBuilder(prompt);
-        line.append(content)
+        line.append(LINE_SEPARATOR)
+                .append(content)
                 .append(LINE_SEPARATOR);
         System.out.println(line);
     }
