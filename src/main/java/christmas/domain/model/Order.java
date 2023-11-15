@@ -1,6 +1,8 @@
 package christmas.domain.model;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Order {
 
@@ -76,5 +78,9 @@ public class Order {
         return orderItems.stream()
                 .map(OrderItem::getMenu)
                 .allMatch(Menu::isBeverage);
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return Collections.unmodifiableList(orderItems);
     }
 }
