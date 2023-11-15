@@ -6,6 +6,7 @@ import christmas.dto.MoneyDto;
 import christmas.dto.OrderDto;
 import christmas.dto.EventBadgeDto;
 import christmas.message.ErrorMessage;
+import christmas.message.OutputMessage;
 import christmas.message.PromptMessage;
 
 import java.math.BigDecimal;
@@ -25,19 +26,19 @@ public class OutputView {
                 .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(PromptMessage.ORDER_MENU, content);
+        printPromptWithContent(OutputMessage.ORDER_MENU, content);
     }
 
     public void printTotalOrderPrice(MoneyDto totalOrderPrice) {
         String content = formatMoney(totalOrderPrice.getMoney());
-        printPromptWithContent(PromptMessage.TOTAL_ORDER_PRICE, content);
+        printPromptWithContent(OutputMessage.TOTAL_ORDER_PRICE, content);
     }
 
     public void printGiftMenu(GiftMenuDto giftMenuDto) {
         Map<String, Integer> giftMenus = giftMenuDto.getGiftMenu();
 
         if (giftMenus.isEmpty()) {
-            printPromptWithContent(PromptMessage.GIFT_MENU, "없음");
+            printPromptWithContent(OutputMessage.GIFT_MENU, OutputMessage.NONE.getMessage());
             return;
         }
 
@@ -45,14 +46,14 @@ public class OutputView {
                 .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(PromptMessage.GIFT_MENU, content);
+        printPromptWithContent(OutputMessage.GIFT_MENU, content);
     }
 
     public void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
         Map<String, BigDecimal> detailsDetails = benefitDetailsDto.getDetails();
 
         if (detailsDetails.isEmpty()) {
-            printPromptWithContent(PromptMessage.BENEFIT_DETAILS, "없음");
+            printPromptWithContent(OutputMessage.BENEFIT_DETAILS, OutputMessage.NONE.getMessage());
             return;
         }
 
@@ -60,7 +61,7 @@ public class OutputView {
                 .map(entry -> entry.getKey() + ": " + formatMinusMoney(entry.getValue()))
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(PromptMessage.BENEFIT_DETAILS, content);
+        printPromptWithContent(OutputMessage.BENEFIT_DETAILS, content);
     }
 
 
@@ -68,22 +69,22 @@ public class OutputView {
         BigDecimal totalBenefitAmountsMoney = totalBenefitAmounts.getMoney();
 
         if (totalBenefitAmountsMoney.equals(BigDecimal.ZERO)) {
-            printPromptWithContent(PromptMessage.TOTAL_BENEFIT_AMOUNTS, "없음");
+            printPromptWithContent(OutputMessage.TOTAL_BENEFIT_AMOUNTS, OutputMessage.NONE.getMessage());
             return;
         }
 
         String content = formatMinusMoney(totalBenefitAmounts.getMoney());
-        printPromptWithContent(PromptMessage.TOTAL_BENEFIT_AMOUNTS, content);
+        printPromptWithContent(OutputMessage.TOTAL_BENEFIT_AMOUNTS, content);
     }
 
     public void printExpectedPayment(MoneyDto expectedPayment) {
         String content = formatMoney(expectedPayment.getMoney());
-        printPromptWithContent(PromptMessage.EXPECTED_PAYMENT, content);
+        printPromptWithContent(OutputMessage.EXPECTED_PAYMENT, content);
     }
 
     public void printEventBadge(EventBadgeDto eventBadgeDto) {
         String content = eventBadgeDto.getBadgeName();
-        printPromptWithContent(PromptMessage.EVENT_BADGE, content);
+        printPromptWithContent(OutputMessage.EVENT_BADGE, content);
     }
 
     public void printErrorMessage(ErrorMessage errorMessage) {
@@ -94,8 +95,8 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printPromptWithContent(PromptMessage promptMessage, String content) {
-        StringBuilder line = new StringBuilder(promptMessage.getPrompt());
+    private void printPromptWithContent(OutputMessage outputMessage, String content) {
+        StringBuilder line = new StringBuilder(outputMessage.getMessage());
         line.append(LINE_SEPARATOR)
                 .append(content)
                 .append(LINE_SEPARATOR);
