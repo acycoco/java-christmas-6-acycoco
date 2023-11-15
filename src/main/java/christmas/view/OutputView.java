@@ -4,7 +4,7 @@ import christmas.dto.BenefitDetailsDto;
 import christmas.dto.GiftMenuDto;
 import christmas.dto.MoneyDto;
 import christmas.dto.OrderDto;
-
+import christmas.dto.EventBadgeDto;
 import java.math.BigDecimal;
 import java.util.Map;
 
@@ -16,6 +16,7 @@ public class OutputView {
     private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>\n";
     private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>\n";
     private static final String EXPECTED_PAYMENT_PROMPT = "<할인 후 예상 결제 금액>\n";
+    private static final String EVENT_BADGE_PROMPT = "<12월 이벤트 배지>\n";
 
     public void printOrderMenu(OrderDto orderDto) {
         StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
@@ -79,6 +80,12 @@ public class OutputView {
     public void printExpectedPayment(MoneyDto expectedPayment) {
         StringBuilder line = new StringBuilder(EXPECTED_PAYMENT_PROMPT);
         line.append(formatMoney(expectedPayment.getMoney()));
+        System.out.println(line);
+    }
+
+    public void printEventBadge(EventBadgeDto eventBadgeDto) {
+        StringBuilder line = new StringBuilder(EVENT_BADGE_PROMPT);
+        line.append(eventBadgeDto.getBadgeName());
         System.out.println(line);
     }
 
