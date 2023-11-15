@@ -17,14 +17,14 @@ public class OrderDto {
     }
 
     public static OrderDto from(Order order) {
-        Map<String, Integer> orderItemsMap = order.getOrderItems()
+        Map<String, Integer> orderItems = order.getOrderItems()
                 .stream()
                 .collect(Collectors.toMap(
                         OrderItem::getMenuName,
                         OrderItem::getQuantity
                 ));
 
-        return new OrderDto(orderItemsMap);
+        return new OrderDto(orderItems);
     }
 
     public Map<String, Integer> getOrderItems() {

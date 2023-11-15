@@ -72,9 +72,9 @@ class DiscountCalculatorTest {
                 .isEqualTo(true);
     }
 
-    @DisplayName("할인내역을 계산한다.")
+    @DisplayName("혜택내역을 계산한다.")
     @Test
-    void calculateDiscountDetailsTest() {
+    void calculateBenefitDetailsTest() {
         //when
         BenefitDetails discountDetails = discountCalculator.calculateBenefitDetails();
         Map<EventType, Money> details = discountDetails.getDetails();

@@ -1,6 +1,5 @@
 package christmas.dto;
 
-import christmas.domain.model.Money;
 import christmas.domain.model.Order;
 import christmas.domain.model.OrderRequest;
 import org.junit.jupiter.api.DisplayName;
