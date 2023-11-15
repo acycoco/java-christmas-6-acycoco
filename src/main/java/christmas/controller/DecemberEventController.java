@@ -4,9 +4,8 @@ import christmas.domain.model.*;
 import christmas.domain.model.eventcalculator.BenefitDetails;
 import christmas.domain.model.eventcalculator.DiscountCalculator;
 import christmas.domain.model.eventcalculator.EventBadge;
-import christmas.domain.model.order.December;
+import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
-import christmas.domain.model.order.OrderInfo;
 import christmas.domain.model.order.OrderItem;
 import christmas.dto.*;
 import christmas.message.ErrorMessage;
@@ -26,13 +25,12 @@ public class DecemberEventController {
     }
 
     public void play() {
-        December visitDate = requestDate();
+        VisitDate visitDate = requestDate();
         Order order = requestOrder();
 
-        OrderInfo orderInfo = new OrderInfo(order, visitDate);
         outputView.printOrderMenu(OrderDto.from(order));
 
-        DiscountCalculator discountCalculator = new DiscountCalculator(orderInfo);
+        DiscountCalculator discountCalculator = new DiscountCalculator(order, visitDate);
         Money totalPrice = discountCalculator.calculateTotalPrice();
         outputView.printTotalOrderPrice(MoneyDto.from(totalPrice));
 
@@ -52,8 +50,8 @@ public class DecemberEventController {
         outputView.printEventBadge(EventBadgeDto.from(eventBadge));
     }
 
-    private December requestDate() {
-        return requestInput(InputView::readDate, December::from, ErrorMessage.DATE_INPUT_ERROR);
+    private VisitDate requestDate() {
+        return requestInput(InputView::readDate, VisitDate::from, ErrorMessage.DATE_INPUT_ERROR);
     }
 
     private Order requestOrder() {

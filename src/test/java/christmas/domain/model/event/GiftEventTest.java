@@ -2,10 +2,9 @@ package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.model.order.December;
+import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Menu;
 import christmas.domain.model.order.Order;
-import christmas.domain.model.order.OrderInfo;
 import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,17 +14,17 @@ import java.util.List;
 class GiftEventTest {
 
     private GiftEvent giftEvent;
-    private OrderInfo orderInfo;
+    private Order order;
+    private VisitDate date;
 
     @BeforeEach
     void setUp() {
-        Order order = Order.from(
+        order = Order.from(
                 List.of(new OrderRequestDto("해산물파스타", 1),
                         new OrderRequestDto("크리스마스파스타", 1),
                         new OrderRequestDto("레드와인", 1))
         );
-        December date = December.from(25);
-        orderInfo = new OrderInfo(order, date);
+        date = VisitDate.from(25);
         giftEvent = new GiftEvent();
 
     }
@@ -34,25 +33,24 @@ class GiftEventTest {
     @Test
     void canDiscountIfTotalPriceIsGreaterThan120000() {
         //when & then
-        assertThat(giftEvent.canDiscount(orderInfo))
+        assertThat(giftEvent.canDiscount(order, date))
                 .isEqualTo(true);
     }
 
     @DisplayName("주문이 12만원미만이면 false를 반환한다.")
     @Test
     void cantDiscountIfTotalPriceIsNotGreaterThan120000() {
-        Order order = Order.from(
+        order = Order.from(
                 List.of(new OrderRequestDto("티본스테이크", 1),
                         new OrderRequestDto("해산물파스타", 1),
                         new OrderRequestDto("크리스마스파스타", 1),
                         new OrderRequestDto("제로콜라", 1))
         );
-        December date = December.from(25);
-        OrderInfo orderInfoFalse = new OrderInfo(order, date);
+        date = VisitDate.from(25);
         GiftEvent giftEventFalse = new GiftEvent();
 
         //when & then
-        assertThat(giftEventFalse.canDiscount(orderInfoFalse))
+        assertThat(giftEventFalse.canDiscount(order, date))
                 .isEqualTo(false);
     }
 
@@ -60,7 +58,7 @@ class GiftEventTest {
     @Test
     void discountAmountIs25000() {
         //when & then
-        assertThat(giftEvent.discountAmount(orderInfo))
+        assertThat(giftEvent.discountAmount(order, date))
                 .isEqualTo(Menu.CHAMPAGNE.getPrice());
     }
 

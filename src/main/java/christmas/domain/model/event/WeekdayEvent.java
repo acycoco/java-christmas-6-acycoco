@@ -1,19 +1,20 @@
 package christmas.domain.model.event;
 
 import christmas.domain.model.Money;
-import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.VisitDate;
 
 public class WeekdayEvent implements Event{
 
     private static final Money DISCOUNT_PER_DESSERT = Money.from(2023);
 
     @Override
-    public boolean canDiscount(OrderInfo orderInfo) {
-        return orderInfo.getDate().isWeekday() && orderInfo.getOrder().countDessertOrders() > 0;
+    public boolean canDiscount(Order order, VisitDate visitDate) {
+        return visitDate.isWeekday() && order.countDessertOrders() > 0;
     }
 
     @Override
-    public Money discountAmount(OrderInfo orderInfo) {
-        return Money.from(orderInfo.getOrder().countDessertOrders()).multiply(DISCOUNT_PER_DESSERT);
+    public Money discountAmount(Order order, VisitDate visitDate) {
+        return Money.from(order.countDessertOrders()).multiply(DISCOUNT_PER_DESSERT);
     }
 }

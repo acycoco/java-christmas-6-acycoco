@@ -3,9 +3,8 @@ package christmas.domain.model.event;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.model.Money;
-import christmas.domain.model.order.December;
+import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
-import christmas.domain.model.order.OrderInfo;
 import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -20,12 +19,12 @@ class SpecialEventTest {
     void canDiscountIfHasStar(int day) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         SpecialEvent specialEvent = new SpecialEvent();
 
         //when & then
-        assertThat(specialEvent.canDiscount(orderInfo))
+        assertThat(specialEvent.canDiscount(order, date))
                 .isEqualTo(true);
     }
 
@@ -35,12 +34,12 @@ class SpecialEventTest {
     void cantDiscountIfHasNotStar(int day) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         SpecialEvent specialEvent = new SpecialEvent();
 
         //when & then
-        assertThat(specialEvent.canDiscount(orderInfo))
+        assertThat(specialEvent.canDiscount(order, date))
                 .isEqualTo(false);
     }
 
@@ -48,12 +47,12 @@ class SpecialEventTest {
     void returnDiscountAmount() {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 5)));
-        December date = December.from(3);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(3);
+
         SpecialEvent specialEvent = new SpecialEvent();
 
         //when & then
-        assertThat(specialEvent.discountAmount(orderInfo))
+        assertThat(specialEvent.discountAmount(order, date))
                 .isEqualTo(Money.from(1000));
     }
 }

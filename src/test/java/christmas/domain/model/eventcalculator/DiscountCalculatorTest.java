@@ -9,6 +9,7 @@ import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,15 +20,15 @@ class DiscountCalculatorTest {
 
     @BeforeEach
     void setUp() {
-        OrderInfo orderInfo = new OrderInfo(
-                Order.from(
-                        List.of(
-                                new OrderRequestDto("티본스테이크", 1),
-                                new OrderRequestDto("바비큐립", 1),
-                                new OrderRequestDto("초코케이크", 2),
-                                new OrderRequestDto("제로콜라", 1)
-                        )), December.from(3));
-        discountCalculator = new DiscountCalculator(orderInfo);
+        Order order = Order.from(
+                List.of(
+                        new OrderRequestDto("티본스테이크", 1),
+                        new OrderRequestDto("바비큐립", 1),
+                        new OrderRequestDto("초코케이크", 2),
+                        new OrderRequestDto("제로콜라", 1)
+                ));
+        VisitDate visitDate = VisitDate.from(3);
+        discountCalculator = new DiscountCalculator(order, visitDate);
     }
 
     @DisplayName("할인 전 총 주문 금액을 계산한다.")
@@ -61,12 +62,12 @@ class DiscountCalculatorTest {
     @Test
     void calculateGiftMenuIfNotAvailableTest() {
         //given
-        OrderInfo orderInfo = new OrderInfo(
-                Order.from(
-                        List.of(
-                                new OrderRequestDto("티본스테이크", 1)
-                        )), December.from(3));
-        discountCalculator = new DiscountCalculator(orderInfo);
+        Order order = Order.from(
+                List.of(
+                        new OrderRequestDto("티본스테이크", 1)
+                ));
+        VisitDate visitDate = VisitDate.from(3);
+        discountCalculator = new DiscountCalculator(order, visitDate);
 
         //when
         Optional<OrderItem> optionalGiftItem = discountCalculator.calculateGiftMenu();

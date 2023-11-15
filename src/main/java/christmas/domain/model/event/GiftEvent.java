@@ -2,21 +2,22 @@ package christmas.domain.model.event;
 
 import christmas.domain.model.order.Menu;
 import christmas.domain.model.Money;
-import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.Order;
 import christmas.domain.model.order.OrderItem;
+import christmas.domain.model.order.VisitDate;
 
 public class GiftEvent implements Event{
 
     private static final Money GIFT_EVENT_THRESHOLD = Money.from(120000);
 
     @Override
-    public boolean canDiscount(OrderInfo orderInfo) {
-        Money totalPrice = orderInfo.getOrder().calculateTotalPrice();
+    public boolean canDiscount(Order order, VisitDate visitDate) {
+        Money totalPrice = order.calculateTotalPrice();
         return totalPrice.isGreaterThanOrEqualTo(GIFT_EVENT_THRESHOLD);
     }
 
     @Override
-    public Money discountAmount(OrderInfo orderInfo) {
+    public Money discountAmount(Order order, VisitDate visitDate) {
         return getGiftItem().calculatePrice();
     }
 

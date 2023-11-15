@@ -2,9 +2,8 @@ package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.model.order.December;
+import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
-import christmas.domain.model.order.OrderInfo;
 import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,12 +20,12 @@ class WeekdayEventTest {
     void canDiscountIfWeekdayOrOrderDessert(int day) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.canDiscount(orderInfo))
+        assertThat(weekdayEvent.canDiscount(order, date))
                 .isEqualTo(true);
     }
 
@@ -36,12 +35,12 @@ class WeekdayEventTest {
     void cantDiscountIfNotWeekdayOrNotOrderDessert(int day, String menuName) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto(menuName, 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.canDiscount(orderInfo))
+        assertThat(weekdayEvent.canDiscount(order, date))
                 .isEqualTo(false);
     }
 
@@ -54,12 +53,12 @@ class WeekdayEventTest {
     void calculateDiscountAmountBasedOnDessertQuantity(int quantity, BigDecimal discount) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", quantity)));
-        December date = December.from(7);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(7);
+
         WeekdayEvent weekdayEvent = new WeekdayEvent();
 
         //when & then
-        assertThat(weekdayEvent.discountAmount(orderInfo).getAmount())
+        assertThat(weekdayEvent.discountAmount(order, date).getAmount())
                 .isEqualTo(discount);
     }
 }

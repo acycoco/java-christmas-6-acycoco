@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
-public class December {
+public class VisitDate {
 
     private static final int FIRST_DAY = 1;
     private static final int LAST_DAY = 31;
@@ -12,13 +12,13 @@ public class December {
 
     private final LocalDate date;
 
-    private December(int day) {
+    private VisitDate(int day) {
         this.date = LocalDate.of(2023, 12, day);
     }
 
-    public static December from(int day) {
+    public static VisitDate from(int day) {
         validateRange(day);
-        return new December(day);
+        return new VisitDate(day);
     }
 
     public boolean isWeekend() {

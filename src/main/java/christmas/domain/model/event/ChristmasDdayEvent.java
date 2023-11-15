@@ -1,7 +1,8 @@
 package christmas.domain.model.event;
 
 import christmas.domain.model.Money;
-import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.VisitDate;
+import christmas.domain.model.order.Order;
 
 import java.time.LocalDate;
 
@@ -13,13 +14,12 @@ public class ChristmasDdayEvent implements Event {
     private static final Money DAILY_DISCOUNT = Money.from(100);
 
     @Override
-    public boolean canDiscount(OrderInfo orderInfo) {
-        return !orderInfo.getDate().isBefore(DECEMBER_DAY1) && !orderInfo.getDate().isAfter(CHRISTMAS_DAY);
+    public boolean canDiscount(Order order, VisitDate visitDate) {
+        return !visitDate.isBefore(DECEMBER_DAY1) && !visitDate.isAfter(CHRISTMAS_DAY);
     }
 
-    //TODO 디미터법칙 위반
     @Override
-    public Money discountAmount(OrderInfo orderInfo) {
-        return BASE_DISCOUNT.add(DAILY_DISCOUNT.multiply(Money.from(orderInfo.getDate().getDay() - DECEMBER_DAY1.getDayOfMonth())));
+    public Money discountAmount(Order order, VisitDate visitDate) {
+        return BASE_DISCOUNT.add(DAILY_DISCOUNT.multiply(Money.from(visitDate.getDay() - DECEMBER_DAY1.getDayOfMonth())));
     }
 }

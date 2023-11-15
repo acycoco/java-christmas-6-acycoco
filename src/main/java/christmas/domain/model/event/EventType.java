@@ -1,7 +1,8 @@
 package christmas.domain.model.event;
 
 import christmas.domain.model.Money;
-import christmas.domain.model.order.OrderInfo;
+import christmas.domain.model.order.Order;
+import christmas.domain.model.order.VisitDate;
 
 public enum EventType {
 
@@ -19,12 +20,12 @@ public enum EventType {
         this.event = event;
     }
 
-    public boolean canDiscount(OrderInfo orderInfo) {
-        return event.canDiscount(orderInfo);
+    public boolean canDiscount(Order order, VisitDate visitDate) {
+        return event.canDiscount(order, visitDate);
     }
 
-    public Money discountAmount(OrderInfo orderInfo) {
-        return event.discountAmount(orderInfo);
+    public Money discountAmount(Order order, VisitDate visitDate) {
+        return event.discountAmount(order, visitDate);
     }
 
     public String getName() {

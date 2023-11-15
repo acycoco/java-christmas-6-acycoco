@@ -2,9 +2,8 @@ package christmas.domain.model.event;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.model.order.December;
+import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
-import christmas.domain.model.order.OrderInfo;
 import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -21,12 +20,12 @@ class ChristmasDdayEventTest {
     void canDiscountIfBetweenDec1And25(int day) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.canDiscount(orderInfo))
+        assertThat(christmasDdayEvent.canDiscount(order, date))
                 .isEqualTo(true);
     }
 
@@ -36,12 +35,12 @@ class ChristmasDdayEventTest {
     void cantDiscountIfAfterDec25(int day) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
-        December date = December.from(day);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(day);
+
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.canDiscount(orderInfo))
+        assertThat(christmasDdayEvent.canDiscount(order, date))
                 .isEqualTo(false);
     }
 
@@ -55,12 +54,12 @@ class ChristmasDdayEventTest {
     void calculateDiscountAmountBasedOnChristmasDDay(int christmasDDay, BigDecimal discount) {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("해산물파스타", 1)));
-        December date = December.from(christmasDDay);
-        OrderInfo orderInfo = new OrderInfo(order, date);
+        VisitDate date = VisitDate.from(christmasDDay);
+
         ChristmasDdayEvent christmasDdayEvent = new ChristmasDdayEvent();
 
         //when & then
-        assertThat(christmasDdayEvent.discountAmount(orderInfo).getAmount())
+        assertThat(christmasDdayEvent.discountAmount(order, date).getAmount())
                 .isEqualTo(discount);
     }
 }
