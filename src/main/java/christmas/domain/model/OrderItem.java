@@ -39,4 +39,8 @@ public class OrderItem {
     public int getQuantity() {
         return quantity.getQuantity();
     }
+
+    public String getMenuName() {
+        return menu.getName();
+    }
 }
