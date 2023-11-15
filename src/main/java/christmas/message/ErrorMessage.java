@@ -1,4 +1,4 @@
-package christmas.exception;
+package christmas.message;
 
 public enum ErrorMessage {
 

@@ -5,22 +5,18 @@ import christmas.dto.GiftMenuDto;
 import christmas.dto.MoneyDto;
 import christmas.dto.OrderDto;
 import christmas.dto.EventBadgeDto;
-import christmas.exception.ErrorMessage;
+import christmas.message.ErrorMessage;
+import christmas.message.PromptMessage;
 
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+
+
 public class OutputView {
 
     private static final String LINE_SEPARATOR = System.lineSeparator();
-    private static final String ORDER_MENU_PROMPT = "<주문 메뉴>";
-    private static final String TOTAL_ORDER_PRICE_PROMPT = "<할인 전 총주문 금액>";
-    private static final String GIFT_MENU_PROMPT = "<증정 메뉴>";
-    private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>";
-    private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>";
-    private static final String EXPECTED_PAYMENT_PROMPT = "<할인 후 예상 결제 금액>";
-    private static final String EVENT_BADGE_PROMPT = "<12월 이벤트 배지>";
 
     public void printOrderMenu(OrderDto orderDto) {
         Map<String, Integer> orderItems = orderDto.getOrderItems();
@@ -29,19 +25,19 @@ public class OutputView {
                 .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(ORDER_MENU_PROMPT, content);
+        printPromptWithContent(PromptMessage.ORDER_MENU, content);
     }
 
     public void printTotalOrderPrice(MoneyDto totalOrderPrice) {
         String content = formatMoney(totalOrderPrice.getMoney());
-        printPromptWithContent(TOTAL_ORDER_PRICE_PROMPT, content);
+        printPromptWithContent(PromptMessage.TOTAL_ORDER_PRICE, content);
     }
 
     public void printGiftMenu(GiftMenuDto giftMenuDto) {
         Map<String, Integer> giftMenus = giftMenuDto.getGiftMenu();
 
         if (giftMenus.isEmpty()) {
-            printPromptWithContent(GIFT_MENU_PROMPT, "없음");
+            printPromptWithContent(PromptMessage.GIFT_MENU, "없음");
             return;
         }
 
@@ -49,14 +45,14 @@ public class OutputView {
                 .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(GIFT_MENU_PROMPT, content);
+        printPromptWithContent(PromptMessage.GIFT_MENU, content);
     }
 
     public void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
         Map<String, BigDecimal> detailsDetails = benefitDetailsDto.getDetails();
 
         if (detailsDetails.isEmpty()) {
-            printPromptWithContent(BENEFIT_DETAILS_PROMPT, "없음");
+            printPromptWithContent(PromptMessage.BENEFIT_DETAILS, "없음");
             return;
         }
 
@@ -64,7 +60,7 @@ public class OutputView {
                 .map(entry -> entry.getKey() + ": " + formatMinusMoney(entry.getValue()))
                 .collect(Collectors.joining(LINE_SEPARATOR));
 
-        printPromptWithContent(BENEFIT_DETAILS_PROMPT, content);
+        printPromptWithContent(PromptMessage.BENEFIT_DETAILS, content);
     }
 
 
@@ -72,22 +68,22 @@ public class OutputView {
         BigDecimal totalBenefitAmountsMoney = totalBenefitAmounts.getMoney();
 
         if (totalBenefitAmountsMoney.equals(BigDecimal.ZERO)) {
-            printPromptWithContent(TOTAL_BENEFIT_AMOUNTS_PROMPT, "없음");
+            printPromptWithContent(PromptMessage.TOTAL_BENEFIT_AMOUNTS, "없음");
             return;
         }
 
         String content = formatMinusMoney(totalBenefitAmounts.getMoney());
-        printPromptWithContent(TOTAL_BENEFIT_AMOUNTS_PROMPT, content);
+        printPromptWithContent(PromptMessage.TOTAL_BENEFIT_AMOUNTS, content);
     }
 
     public void printExpectedPayment(MoneyDto expectedPayment) {
         String content = formatMoney(expectedPayment.getMoney());
-        printPromptWithContent(EXPECTED_PAYMENT_PROMPT, content);
+        printPromptWithContent(PromptMessage.EXPECTED_PAYMENT, content);
     }
 
     public void printEventBadge(EventBadgeDto eventBadgeDto) {
         String content = eventBadgeDto.getBadgeName();
-        printPromptWithContent(EVENT_BADGE_PROMPT, content);
+        printPromptWithContent(PromptMessage.EVENT_BADGE, content);
     }
 
     public void printErrorMessage(ErrorMessage errorMessage) {
@@ -98,8 +94,8 @@ public class OutputView {
         System.out.println();
     }
 
-    private void printPromptWithContent(String prompt, String content) {
-        StringBuilder line = new StringBuilder(prompt);
+    private void printPromptWithContent(PromptMessage promptMessage, String content) {
+        StringBuilder line = new StringBuilder(promptMessage.getPrompt());
         line.append(LINE_SEPARATOR)
                 .append(content)
                 .append(LINE_SEPARATOR);
