@@ -31,12 +31,19 @@ public class OutputView {
     }
 
     public void printGiftMenu(GiftMenuDto giftMenuDto) {
-        StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
-        Map<String, Integer> orderItems = giftMenuDto.getGiftMenu();
+        StringBuilder line = new StringBuilder(GIFT_MENU_PROMPT);
 
-        orderItems.forEach((menuName, quantity) -> {
-            line.append(menuName).append(" ").append(quantity).append("개\n");
-        });
+        Map<String, Integer> giftMenus = giftMenuDto.getGiftMenu();
+
+        if (giftMenus.isEmpty()) {
+            line.append("없음");
+        }
+
+        if (!giftMenus.isEmpty()) {
+            giftMenus.forEach((menuName, quantity) -> {
+                line.append(menuName).append(" ").append(quantity).append("개\n");
+            });
+        }
 
         System.out.println(line);
     }
