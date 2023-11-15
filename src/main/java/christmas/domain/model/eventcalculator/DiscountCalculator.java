@@ -36,7 +36,7 @@ public class DiscountCalculator {
     }
 
     public BenefitDetails calculateBenefitDetails() {
-        if (!checkNoBenefit()) {
+        if (checkNoBenefit()) {
             return new BenefitDetails(Collections.emptyMap());
         }
 
