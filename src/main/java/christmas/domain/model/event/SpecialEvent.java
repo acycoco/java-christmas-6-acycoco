@@ -3,7 +3,7 @@ package christmas.domain.model.event;
 import christmas.domain.model.Money;
 import christmas.domain.model.order.OrderInfo;
 
-public class SpecialEvent implements Event{
+public class SpecialEvent implements Event {
 
     private static final int SPECIAL_DISCOUNT = 1000;
 
