@@ -14,6 +14,7 @@ public class OutputView {
     private static final String TOTAL_ORDER_PRICE_PROMPT = "<할인 전 총주문 금액>\n";
     private static final String GIFT_MENU_PROMPT = "<증정 메뉴>\n";
     private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>\n";
+    private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>\n";
 
     public void printOrderMenu(OrderDto orderDto) {
         StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
@@ -51,7 +52,7 @@ public class OutputView {
     }
 
     public void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
-        StringBuilder line = new StringBuilder(GIFT_MENU_PROMPT);
+        StringBuilder line = new StringBuilder(BENEFIT_DETAILS_PROMPT);
 
         Map<String, BigDecimal> detailsDetails = benefitDetailsDto.getDetails();
 
@@ -65,6 +66,12 @@ public class OutputView {
             });
         }
 
+        System.out.println(line);
+    }
+
+    public void printTotalBenefitAmounts(MoneyDto totalBenefitAmounts) {
+        StringBuilder line = new StringBuilder(TOTAL_BENEFIT_AMOUNTS_PROMPT);
+        line.append(formatMinusMoney(totalBenefitAmounts.getMoney()));
         System.out.println(line);
     }
 
