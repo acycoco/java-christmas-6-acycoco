@@ -27,27 +27,15 @@ public class DecemberEventController {
     public void play() {
         VisitDate visitDate = requestDate();
         Order order = requestOrder();
-
-        outputView.printOrderMenu(OrderDto.from(order));
-
         DiscountCalculator discountCalculator = new DiscountCalculator(order, visitDate);
-        Money totalPrice = discountCalculator.calculateTotalPrice();
-        outputView.printTotalOrderPrice(MoneyDto.from(totalPrice));
 
-        Optional<OrderItem> giftMenu = discountCalculator.calculateGiftMenu();
-        outputView.printGiftMenu(GiftMenuDto.from(giftMenu));
-
-        BenefitDetails benefitDetails = discountCalculator.calculateBenefitDetails();
-        outputView.printBenefitDetails(BenefitDetailsDto.from(benefitDetails));
-
-        Money totalBenefitAmounts = discountCalculator.calculateTotalBenefitAmounts();
-        outputView.printTotalBenefitAmounts(MoneyDto.from(totalBenefitAmounts));
-
-        Money expectedPayment = discountCalculator.calculateExpectedPayment();
-        outputView.printExpectedPayment(MoneyDto.from(expectedPayment));
-
-        EventBadge eventBadge = discountCalculator.calculateEventBadge();
-        outputView.printEventBadge(EventBadgeDto.from(eventBadge));
+        printOrderMenu(order);
+        printTotalOrderPrice(discountCalculator);
+        printGiftMenu(discountCalculator);
+        printBenefitDetails(discountCalculator);
+        printTotalBenefitAmounts(discountCalculator);
+        printExpectedPayment(discountCalculator);
+        printEventBadge(discountCalculator);
     }
 
     private VisitDate requestDate() {
@@ -56,6 +44,40 @@ public class DecemberEventController {
 
     private Order requestOrder() {
         return requestInput(InputView::readOrderRequests, Order::from, ErrorMessage.ORDER_INPUT_ERROR);
+    }
+
+    private void printOrderMenu(Order order) {
+        outputView.printOrderMenu(OrderDto.from(order));
+    }
+
+    private void printTotalOrderPrice(DiscountCalculator discountCalculator) {
+        Money totalPrice = discountCalculator.calculateTotalPrice();
+        outputView.printTotalOrderPrice(MoneyDto.from(totalPrice));
+    }
+
+    private void printGiftMenu(DiscountCalculator discountCalculator) {
+        Optional<OrderItem> giftMenu = discountCalculator.calculateGiftMenu();
+        outputView.printGiftMenu(GiftMenuDto.from(giftMenu));
+    }
+
+    private void printBenefitDetails(DiscountCalculator discountCalculator) {
+        BenefitDetails benefitDetails = discountCalculator.calculateBenefitDetails();
+        outputView.printBenefitDetails(BenefitDetailsDto.from(benefitDetails));
+    }
+
+    private void printTotalBenefitAmounts(DiscountCalculator discountCalculator) {
+        Money totalBenefitAmounts = discountCalculator.calculateTotalBenefitAmounts();
+        outputView.printTotalBenefitAmounts(MoneyDto.from(totalBenefitAmounts));
+    }
+
+    private void printExpectedPayment(DiscountCalculator discountCalculator) {
+        Money expectedPayment = discountCalculator.calculateExpectedPayment();
+        outputView.printExpectedPayment(MoneyDto.from(expectedPayment));
+    }
+
+    private void printEventBadge(DiscountCalculator discountCalculator) {
+        EventBadge eventBadge = discountCalculator.calculateEventBadge();
+        outputView.printEventBadge(EventBadgeDto.from(eventBadge));
     }
 
     private <T, U> U requestInput(Function<InputView, T> readFunction, Function<T, U> convertFunction, ErrorMessage errorMessage) {
