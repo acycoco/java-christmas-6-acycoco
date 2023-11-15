@@ -1,7 +1,6 @@
 package christmas.domain.model.order;
 
 import christmas.domain.model.Money;
-
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -58,8 +57,5 @@ public enum Menu {
         return price;
     }
 
-    public MenuCategory getCategory() {
-        return menuCategory;
-    }
 }
 

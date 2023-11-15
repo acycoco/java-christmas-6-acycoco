@@ -20,7 +20,7 @@ public class InputProcessor {
         validateNotNull(input);
         input = input.trim();
 
-        List<String> orderItems = parseWith(input, COMMA);
+        List<String> orderItems = parseWithMark(input, COMMA);
         return orderItems.stream()
                 .map(orderItem -> parseOrderItem(orderItem, DASH))
                 .toList();
@@ -41,14 +41,14 @@ public class InputProcessor {
         }
     }
 
-    private List<String> parseWith(String input, String mark) {
+    private List<String> parseWithMark(String input, String mark) {
         return Arrays.stream(input.split(mark))
                 .map(String::trim)
                 .toList();
     }
 
     private OrderRequestDto parseOrderItem(String orderItem, String mark) {
-        List<String> orderItemParts = parseWith(orderItem, mark);
+        List<String> orderItemParts = parseWithMark(orderItem, mark);
         validateOrderItemPartsLength(orderItemParts);
 
         String menuName = orderItemParts.get(0);

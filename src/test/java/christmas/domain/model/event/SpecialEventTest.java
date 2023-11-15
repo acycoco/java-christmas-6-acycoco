@@ -7,6 +7,7 @@ import christmas.domain.model.order.VisitDate;
 import christmas.domain.model.order.Order;
 import christmas.dto.OrderRequestDto;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
@@ -44,6 +45,7 @@ class SpecialEventTest {
     }
 
     @DisplayName("디저트류 1개당 2023원 할인 금액이 증가한다.")
+    @Test
     void returnDiscountAmount() {
         //given
         Order order = Order.from(List.of(new OrderRequestDto("초코케이크", 5)));

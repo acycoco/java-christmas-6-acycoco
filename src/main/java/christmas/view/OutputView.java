@@ -7,8 +7,6 @@ import christmas.dto.OrderDto;
 import christmas.dto.EventBadgeDto;
 import christmas.message.ErrorMessage;
 import christmas.message.OutputMessage;
-import christmas.message.PromptMessage;
-
 import java.math.BigDecimal;
 import java.util.Map;
 import java.util.stream.Collectors;
