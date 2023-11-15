@@ -15,6 +15,7 @@ public class OutputView {
     private static final String GIFT_MENU_PROMPT = "<증정 메뉴>\n";
     private static final String BENEFIT_DETAILS_PROMPT = "<혜택 내역>\n";
     private static final String TOTAL_BENEFIT_AMOUNTS_PROMPT = "<총혜택 금액>\n";
+    private static final String EXPECTED_PAYMENT_PROMPT = "<할인 후 예상 결제 금액>\n";
 
     public void printOrderMenu(OrderDto orderDto) {
         StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
@@ -72,6 +73,12 @@ public class OutputView {
     public void printTotalBenefitAmounts(MoneyDto totalBenefitAmounts) {
         StringBuilder line = new StringBuilder(TOTAL_BENEFIT_AMOUNTS_PROMPT);
         line.append(formatMinusMoney(totalBenefitAmounts.getMoney()));
+        System.out.println(line);
+    }
+
+    public void printExpectedPayment(MoneyDto expectedPayment) {
+        StringBuilder line = new StringBuilder(EXPECTED_PAYMENT_PROMPT);
+        line.append(formatMoney(expectedPayment.getMoney()));
         System.out.println(line);
     }
 
