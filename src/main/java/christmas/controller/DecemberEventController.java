@@ -9,6 +9,7 @@ import christmas.domain.model.order.Order;
 import christmas.domain.model.order.OrderItem;
 import christmas.dto.*;
 import christmas.message.ErrorMessage;
+import christmas.message.OutputMessage;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
@@ -25,10 +26,12 @@ public class DecemberEventController {
     }
 
     public void play() {
+        outputView.printMessage(OutputMessage.START_MESSAGE);
         VisitDate visitDate = requestDate();
         Order order = requestOrder();
         DiscountCalculator discountCalculator = new DiscountCalculator(order, visitDate);
 
+        outputView.printMessage(OutputMessage.BENEFIT_MESSAGE);
         printOrderMenu(order);
         printTotalOrderPrice(discountCalculator);
         printGiftMenu(discountCalculator);

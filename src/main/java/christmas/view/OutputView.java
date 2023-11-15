@@ -89,6 +89,10 @@ public class OutputView {
         System.out.println(errorMessage.getMessage());
     }
 
+    public void printMessage(OutputMessage outputMessage) {
+        System.out.println(outputMessage.getMessage());
+    }
+
     public void printEmptyLine() {
         System.out.println();
     }
