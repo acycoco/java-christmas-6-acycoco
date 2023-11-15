@@ -9,6 +9,7 @@ import christmas.exception.ErrorMessage;
 
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class OutputView {
 
@@ -22,80 +23,71 @@ public class OutputView {
     private static final String EVENT_BADGE_PROMPT = "<12월 이벤트 배지>" + LINE_SEPARATOR;
 
     public void printOrderMenu(OrderDto orderDto) {
-        StringBuilder line = new StringBuilder(ORDER_MENU_PROMPT);
         Map<String, Integer> orderItems = orderDto.getOrderItems();
 
-        orderItems.forEach((menuName, quantity) -> {
-            line.append(menuName).append(" ").append(quantity).append("개" + LINE_SEPARATOR);
-        });
+        String content = orderItems.entrySet().stream()
+                .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
+                .collect(Collectors.joining(LINE_SEPARATOR));
 
-        System.out.println(line);
+        printPromptWithContent(ORDER_MENU_PROMPT, content);
     }
 
     public void printTotalOrderPrice(MoneyDto totalOrderPrice) {
-        StringBuilder line = new StringBuilder(TOTAL_ORDER_PRICE_PROMPT);
-        line.append(formatMoney(totalOrderPrice.getMoney()));
-        System.out.println(line + LINE_SEPARATOR);
+        String content = formatMoney(totalOrderPrice.getMoney());
+        printPromptWithContent(TOTAL_ORDER_PRICE_PROMPT, content);
     }
 
     public void printGiftMenu(GiftMenuDto giftMenuDto) {
-        StringBuilder line = new StringBuilder(GIFT_MENU_PROMPT);
-
         Map<String, Integer> giftMenus = giftMenuDto.getGiftMenu();
 
         if (giftMenus.isEmpty()) {
-            line.append("없음" + LINE_SEPARATOR);
+            printPromptWithContent(GIFT_MENU_PROMPT, "없음");
+            return;
         }
 
-        if (!giftMenus.isEmpty()) {
-            giftMenus.forEach((menuName, quantity) -> {
-                line.append(menuName).append(" ").append(quantity).append("개" + LINE_SEPARATOR);
-            });
-        }
+        String content = giftMenus.entrySet().stream()
+                .map(entry -> entry.getKey() + " " + entry.getValue() + "개")
+                .collect(Collectors.joining(LINE_SEPARATOR));
 
-        System.out.println(line);
+        printPromptWithContent(GIFT_MENU_PROMPT, content);
     }
 
     public void printBenefitDetails(BenefitDetailsDto benefitDetailsDto) {
-        StringBuilder line = new StringBuilder(BENEFIT_DETAILS_PROMPT);
-
         Map<String, BigDecimal> detailsDetails = benefitDetailsDto.getDetails();
 
         if (detailsDetails.isEmpty()) {
-            line.append("없음" + LINE_SEPARATOR);
+            printPromptWithContent(BENEFIT_DETAILS_PROMPT, "없음");
+            return;
         }
 
-        if (!detailsDetails.isEmpty()) {
-            detailsDetails.forEach((eventName, money) -> {
-                line.append(eventName).append(": ").append(formatMinusMoney(money)).append(LINE_SEPARATOR);
-            });
-        }
+        String content = detailsDetails.entrySet().stream()
+                .map(entry -> entry.getKey() + ": " + formatMinusMoney(entry.getValue()))
+                .collect(Collectors.joining(LINE_SEPARATOR));
 
-        System.out.println(line);
+        printPromptWithContent(BENEFIT_DETAILS_PROMPT, content);
     }
 
+
     public void printTotalBenefitAmounts(MoneyDto totalBenefitAmounts) {
-        StringBuilder line = new StringBuilder(TOTAL_BENEFIT_AMOUNTS_PROMPT);
         BigDecimal totalBenefitAmountsMoney = totalBenefitAmounts.getMoney();
+
         if (totalBenefitAmountsMoney.equals(BigDecimal.ZERO)) {
-            line.append("없음");
+            printPromptWithContent(TOTAL_BENEFIT_AMOUNTS_PROMPT, "없음");
+            return;
         }
-        else {
-            line.append(formatMinusMoney(totalBenefitAmounts.getMoney()));
-        }
-        System.out.println(line + LINE_SEPARATOR);
+
+        String content = formatMinusMoney(totalBenefitAmounts.getMoney());
+        printPromptWithContent(TOTAL_BENEFIT_AMOUNTS_PROMPT, content);
     }
 
     public void printExpectedPayment(MoneyDto expectedPayment) {
-        StringBuilder line = new StringBuilder(EXPECTED_PAYMENT_PROMPT);
-        line.append(formatMoney(expectedPayment.getMoney()));
-        System.out.println(line + LINE_SEPARATOR);
+        String content = formatMoney(expectedPayment.getMoney());
+        printPromptWithContent(EXPECTED_PAYMENT_PROMPT, content);
     }
 
     public void printEventBadge(EventBadgeDto eventBadgeDto) {
-        StringBuilder line = new StringBuilder(EVENT_BADGE_PROMPT);
-        line.append(eventBadgeDto.getBadgeName());
-        System.out.println(line + LINE_SEPARATOR);
+        String content = eventBadgeDto.getBadgeName();
+        printPromptWithContent(EVENT_BADGE_PROMPT, content);
     }
 
     public void printErrorMessage(ErrorMessage errorMessage) {
@@ -106,9 +98,17 @@ public class OutputView {
         System.out.println();
     }
 
+    private void printPromptWithContent(String prompt, String content) {
+        StringBuilder line = new StringBuilder(prompt);
+        line.append(content)
+                .append(LINE_SEPARATOR);
+        System.out.println(line);
+    }
+
     private String formatMoney(BigDecimal money) {
         return String.format("%,.0f원", money);
     }
+
     private String formatMinusMoney(BigDecimal money) {
         return String.format("-%,.0f원", money);
     }
