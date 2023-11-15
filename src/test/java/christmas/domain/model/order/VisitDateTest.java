@@ -13,10 +13,10 @@ class VisitDateTest {
     @ValueSource(ints = {3, 10, 17, 24, 25, 31})
     void hasStar(int starDay) {
         //given
-        VisitDate visitDateCalendar = VisitDate.from(starDay);
+        VisitDate visitDate = VisitDate.from(starDay);
 
         //when
-        boolean hasStar = visitDateCalendar.hasStar();
+        boolean hasStar = visitDate.hasStar();
 
         //then
         assertThat(hasStar)

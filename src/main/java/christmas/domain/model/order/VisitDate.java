@@ -6,10 +6,6 @@ import java.util.List;
 
 public class VisitDate {
 
-    private static final int FIRST_DAY = 1;
-    private static final int LAST_DAY = 31;
-    private static final List<Integer> STAR_DAY = List.of(3, 10, 17, 24, 25, 31);
-
     private final LocalDate date;
 
     private VisitDate(int day) {
@@ -31,15 +27,15 @@ public class VisitDate {
     }
 
     public boolean hasStar() {
-        return STAR_DAY.contains(date.getDayOfMonth());
+        return December.STAR_DAY.contains(date.getDayOfMonth());
     }
 
-    public boolean isBefore(LocalDate specialDate) {
-        return date.isBefore(specialDate);
+    public boolean isBeforeOrEqual(int day) {
+        return date.getDayOfMonth() <= day;
     }
 
-    public boolean isAfter(LocalDate specialDate) {
-        return date.isAfter(specialDate);
+    public boolean isAfterOrEqual(int day) {
+        return date.getDayOfMonth() >= day;
     }
 
     public int getDay() {
@@ -47,7 +43,7 @@ public class VisitDate {
     }
 
     private static void validateRange(int day) {
-        if (day < FIRST_DAY || day > LAST_DAY) {
+        if (day < December.FIRST_DAY.getDay() || day > December.LAST_DAY.getDay()) {
             throw new IllegalArgumentException();
         }
     }

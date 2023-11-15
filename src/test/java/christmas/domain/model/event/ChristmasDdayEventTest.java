@@ -29,7 +29,7 @@ class ChristmasDdayEventTest {
                 .isEqualTo(true);
     }
 
-    @DisplayName("2023년 12월 26일~ 전이면 false를 반환한다.")
+    @DisplayName("2023년 12월 26일이후면 false를 반환한다.")
     @ParameterizedTest
     @ValueSource(ints = {26, 31})
     void cantDiscountIfAfterDec25(int day) {
